@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 18b8f79..62b1fc8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -327,7 +327,7 @@ endif()
+ 
+ if (ENABLE_WEB_SERVICE)
+     find_package(cpp-jwt 1.4 CONFIG)
+-    find_package(httplib 0.12 MODULE COMPONENTS OpenSSL)
++    find_package(httplib 0.13 MODULE COMPONENTS OpenSSL)
+ endif()
+ 
+ if (YUZU_TESTS)
