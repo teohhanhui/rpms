@@ -1,6 +1,6 @@
 Submodule externals/nx_tzdb/tzdb_to_nx contains modified content
 diff --git a/externals/nx_tzdb/tzdb_to_nx/src/tzdb/CMakeLists.txt b/externals/nx_tzdb/tzdb_to_nx/src/tzdb/CMakeLists.txt
-index 119002b..88ee156 100644
+index 119002b..c724f2e 100644
 --- a/externals/nx_tzdb/tzdb_to_nx/src/tzdb/CMakeLists.txt
 +++ b/externals/nx_tzdb/tzdb_to_nx/src/tzdb/CMakeLists.txt
 @@ -15,7 +15,7 @@ set(TZDB_VERSION_FILE ${TZ_SOURCE_DIR}/NEWS)
@@ -8,7 +8,7 @@ index 119002b..88ee156 100644
  execute_process(
      COMMAND 
 -        ${GIT_PROGRAM} log --pretty=%at -n1 NEWS
-+        echo "1669969528"
++        echo 1669969528
      OUTPUT_VARIABLE
          TZ_COMMIT_TIME
      WORKING_DIRECTORY

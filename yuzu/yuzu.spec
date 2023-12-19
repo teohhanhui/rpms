@@ -54,6 +54,7 @@ Source99:       compatibility_list.json
 
 Patch0:         cmake-httplib-0.13.patch
 Patch1:         tzdb_to_nx-hardcode-tz-commit-time.patch
+Patch2:         tz-hardcode-version.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  ccache
@@ -62,6 +63,7 @@ BuildRequires:  cmake
 BuildRequires:  cmake(cubeb)
 BuildRequires:  cmake(fmt)
 BuildRequires:  cmake(httplib)
+BuildRequires:  cmake(LLVM)
 BuildRequires:  cmake(nlohmann_json)
 BuildRequires:  cmake(rapidjson)
 BuildRequires:  cmake(SDL2)
@@ -76,6 +78,7 @@ BuildRequires:  glslang
 BuildRequires:  hidapi-devel
 BuildRequires:  ninja-build
 BuildRequires:  openssl-devel
+BuildRequires:  pkgconfig(gamemode)
 BuildRequires:  pkgconfig(libenet)
 BuildRequires:  pkgconfig(liblz4)
 BuildRequires:  pkgconfig(libusb-1.0)
@@ -86,6 +89,9 @@ BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtbase-private-devel
 BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtwebengine-devel
+BuildRequires:  stb_image-devel
+BuildRequires:  stb_image_resize-devel
+BuildRequires:  stb_image_write-devel
 BuildRequires:  wayland-devel
 BuildRequires:  zlib-devel
 
@@ -105,13 +111,16 @@ cp %{SOURCE99} dist/compatibility_list/compatibility_list.json
 
 %build
 %cmake -G Ninja \
+    -DDISPLAY_VERSION="%{version}" \
+    -DBUILD_TAG="mainline-%{version}" \
+    -DBUILD_REPOSITORY="yuzu-emu/yuzu-mainline" \
     -DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF \
     -DENABLE_QT_TRANSLATION=ON \
     -DUSE_DISCORD_PRESENCE=ON \
-    -DDISPLAY_VERSION="%{version}" \
+    -DYUZU_ENABLE_COMPATIBILITY_REPORTING=ON \
     -DYUZU_USE_BUNDLED_SDL2=OFF \
     -DYUZU_USE_EXTERNAL_SDL2=OFF \
-    -DYUZU_USE_EXTERNAL_FFMPEG=OFF \
+    -DYUZU_USE_BUNDLED_FFMPEG=OFF \
     -DYUZU_USE_EXTERNAL_VULKAN_HEADERS=OFF \
     -DYUZU_USE_BUNDLED_VCPKG=OFF \
     -DYUZU_CHECK_SUBMODULES=OFF \
