@@ -1,0 +1,33 @@
+diff --git a/src/core/arm/nce/interpreter_visitor.cpp b/src/core/arm/nce/interpreter_visitor.cpp
+index ec373fdf20..def888d153 100644
+--- a/src/core/arm/nce/interpreter_visitor.cpp
++++ b/src/core/arm/nce/interpreter_visitor.cpp
+@@ -5,8 +5,6 @@
+ #include "common/bit_cast.h"
+ #include "core/arm/nce/interpreter_visitor.h"
+ 
+-#include <dynarmic/frontend/A64/decoder/a64.h>
+-
+ namespace Core {
+ 
+ template <u32 BitSize>
+diff --git a/src/core/arm/nce/visitor_base.h b/src/core/arm/nce/visitor_base.h
+index 8fb0329120..6a2be3d9bc 100644
+--- a/src/core/arm/nce/visitor_base.h
++++ b/src/core/arm/nce/visitor_base.h
+@@ -4,9 +4,15 @@
+ 
+ #pragma once
+ 
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wshadow"
++
+ #include <dynarmic/frontend/A64/a64_types.h>
++#include <dynarmic/frontend/A64/decoder/a64.h>
+ #include <dynarmic/frontend/imm.h>
+ 
++#pragma GCC diagnostic pop
++
+ namespace Core {
+ 
+ class VisitorBase {

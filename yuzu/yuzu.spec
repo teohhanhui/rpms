@@ -1,9 +1,9 @@
-%global date 20231216
-%global commit defda5dae4c504ffefda673903b8048543456fe1
+%global date 20231220
+%global commit 3cff46c983b4e256f13269fdebc25d766c995e72
 %global shortcommit %(c=%{commit}; echo ${c:0:9})
 
 Name:           yuzu
-Version:        1653
+Version:        1657
 Release:        %autorelease
 Summary:        Nintendo Switch emulator
 
@@ -55,6 +55,8 @@ Source99:       compatibility_list.json
 Patch0:         cmake-httplib-0.13.patch
 Patch1:         tzdb_to_nx-hardcode-tz-commit-time.patch
 Patch2:         tz-hardcode-version.patch
+# https://github.com/yuzu-emu/yuzu/issues/12413
+Patch3:         nce-ignore-shadow-warning.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  ccache
@@ -114,6 +116,10 @@ cp %{SOURCE99} dist/compatibility_list/compatibility_list.json
     -DDISPLAY_VERSION="%{version}" \
     -DBUILD_TAG="mainline-%{version}" \
     -DBUILD_REPOSITORY="yuzu-emu/yuzu-mainline" \
+    -DGIT_BRANCH="mainline" \
+    -DGIT_DESC="%{version}-%{shortcommit}" \
+    -DTITLE_BAR_FORMAT_IDLE="yuzu {}" \
+    -DTITLE_BAR_FORMAT_RUNNING="yuzu {} | {}" \
     -DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF \
     -DENABLE_QT_TRANSLATION=ON \
     -DUSE_DISCORD_PRESENCE=ON \
