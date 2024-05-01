@@ -1,15 +1,22 @@
+%global date 20240430
+%global commit 3fda47e870c7220a64b02e1210ecf3361ee4da2a
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 %global toolchain clang
 
-%bcond check 1
+# FEX only supports 4K page size
+%bcond check %[ %(getconf PAGESIZE) == 4096 ]
+
+%global forgeurl https://github.com/FEX-Emu/FEX
 
 Name:       fex-emu
-Version:    2404
+Version:    2404^%{date}git%{shortcommit}
 Release:    %autorelease
 Summary:    Fast x86 emulation frontend
 
 License:    MIT
 URL:        https://fex-emu.com/
-Source0:    https://github.com/FEX-Emu/FEX/archive/refs/tags/FEX-%{version}.tar.gz
+Source0:    %{forgeurl}/archive/%{commit}/FEX-%{commit}.tar.gz
 
 # External dependencies
 # These are git submodules in upstream repo
@@ -55,6 +62,9 @@ function print_setup_externals()
 end
 }
 
+# FEX only supports aarch64 and x86_64
+ExclusiveArch:  aarch64 x86_64
+
 BuildRequires:  ccache
 BuildRequires:  clang
 BuildRequires:  cmake
@@ -91,7 +101,7 @@ Summary:    Development header files for fex-emu
 Development header files for fex-emu.
 
 %prep
-%setup -n FEX-FEX-%{version}
+%setup -q -n FEX-%{commit}
 
 %{lua: print_setup_externals()}
 
@@ -104,7 +114,8 @@ sed -i \
 
 %build
 %cmake -G Ninja \
-    %{!?with_check:-DBUILD_TESTS=False}
+    %{!?with_check:-DBUILD_TESTS=False} \
+    %{?with_check:-DBUILD_FEX_LINUX_TESTS=True}
 
 %cmake_build
 
