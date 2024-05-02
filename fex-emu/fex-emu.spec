@@ -1,5 +1,5 @@
 %global date 20240502
-%global commit 9781b957d06b5f61f1b3e140d3a12580d1707072
+%global commit 7c79e5dea1c5cd23e8545188bcb9cc390ef643d9
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global toolchain clang
@@ -13,13 +13,15 @@
 %global forgeurl https://github.com/FEX-Emu/FEX
 
 Name:       fex-emu
-Version:    2404^%{date}git%{shortcommit}
+Version:    2405^%{date}git%{shortcommit}
 Release:    1%{?dist}
 Summary:    Fast x86 emulation frontend
 
 License:    MIT
 URL:        https://fex-emu.com/
 Source0:    %{forgeurl}/archive/%{commit}/FEX-%{commit}.tar.gz
+
+Patch0:     0001-Pass-compulsory-mode-argument-to-open-when-O_CREAT-i.patch
 
 # External dependencies
 # These are git submodules in upstream repo
@@ -75,7 +77,6 @@ BuildRequires:  cmake
 BuildRequires:  cmake(SDL2)
 BuildRequires:  git
 BuildRequires:  libepoxy-devel
-BuildRequires:  libglvnd-devel
 BuildRequires:  lld
 BuildRequires:  llvm
 BuildRequires:  ninja-build
@@ -88,18 +89,11 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  alsa-lib-devel
 BuildRequires:  cmake(Clang)
 BuildRequires:  libdrm-devel
+BuildRequires:  libglvnd-devel
 BuildRequires:  libX11-devel
-BuildRequires:  libxcb-devel
-BuildRequires:  libXext-devel
-BuildRequires:  libXfixes-devel
-BuildRequires:  libXrandr-devel
-BuildRequires:  libXrender-devel
-BuildRequires:  libxshmfence-devel
 BuildRequires:  llvm-devel
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  wayland-devel
-BuildRequires:  xorg-x11-proto-devel
-BuildRequires:  xorg-x11-xtrans-devel
 %endif
 
 %if %{with check}
