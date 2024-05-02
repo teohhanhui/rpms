@@ -1,17 +1,20 @@
-%global date 20240430
-%global commit 3fda47e870c7220a64b02e1210ecf3361ee4da2a
+%global date 20240502
+%global commit 9781b957d06b5f61f1b3e140d3a12580d1707072
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global toolchain clang
 
-# FEX only supports 4K page size
-%bcond check %[ %(getconf PAGESIZE) == 4096 ]
+# Not practical to run tests for aarch64 builds as a RootFS is required
+%bcond check %[ "x86_64" == "%{_target_cpu}" ]
+
+# TODO: building thunks is still broken
+%bcond thunks 0
 
 %global forgeurl https://github.com/FEX-Emu/FEX
 
 Name:       fex-emu
 Version:    2404^%{date}git%{shortcommit}
-Release:    %autorelease
+Release:    1%{?dist}
 Summary:    Fast x86 emulation frontend
 
 License:    MIT
@@ -74,17 +77,41 @@ BuildRequires:  git
 BuildRequires:  libepoxy-devel
 BuildRequires:  libglvnd-devel
 BuildRequires:  lld
-BuildRequires:  llvm-devel
+BuildRequires:  llvm
 BuildRequires:  ninja-build
 BuildRequires:  pkgconfig
-BuildRequires:  pkgconfig(openssl)
 BuildRequires:  python3
 BuildRequires:  python3-setuptools
 BuildRequires:  systemd-rpm-macros
 
+%if %{with thunks}
+BuildRequires:  alsa-lib-devel
+BuildRequires:  cmake(Clang)
+BuildRequires:  libdrm-devel
+BuildRequires:  libX11-devel
+BuildRequires:  libxcb-devel
+BuildRequires:  libXext-devel
+BuildRequires:  libXfixes-devel
+BuildRequires:  libXrandr-devel
+BuildRequires:  libXrender-devel
+BuildRequires:  libxshmfence-devel
+BuildRequires:  llvm-devel
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  wayland-devel
+BuildRequires:  xorg-x11-proto-devel
+BuildRequires:  xorg-x11-xtrans-devel
+%endif
+
 %if %{with check}
 BuildRequires:  nasm
+BuildRequires:  python3-clang
 %endif
+
+Recommends:     squashfs-tools
+Recommends:     squashfuse
+
+Suggests:       erofs-fuse
+Suggests:       erofs-utils
 
 %description
 FEX allows you to run x86 and x86-64 binaries on an AArch64 host, similar to
@@ -114,8 +141,11 @@ sed -i \
 
 %build
 %cmake -G Ninja \
+    %{?with_thunks:-DBUILD_THUNKS=True} \
+    %{?with_thunks:-DENABLE_CLANG_THUNKS=True} \
+    %dnl %{?with_check:-DENABLE_CLANG_THUNKS=True} \
     %{!?with_check:-DBUILD_TESTS=False} \
-    %{?with_check:-DBUILD_FEX_LINUX_TESTS=True}
+    %dnl %{?with_check:-DBUILD_FEX_LINUX_TESTS=True}
 
 %cmake_build
 
