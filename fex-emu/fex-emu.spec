@@ -1,5 +1,5 @@
-%global date 20240502
-%global commit 7c79e5dea1c5cd23e8545188bcb9cc390ef643d9
+%global date 20240508
+%global commit 2cae2f246247020e3ea3f3081e8f34ce25d925b5
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global toolchain clang
@@ -20,8 +20,6 @@ Summary:    Fast x86 emulation frontend
 License:    MIT
 URL:        https://fex-emu.com/
 Source0:    %{forgeurl}/archive/%{commit}/FEX-%{commit}.tar.gz
-
-Patch0:     0001-Pass-compulsory-mode-argument-to-open-when-O_CREAT-i.patch
 
 # External dependencies
 # These are git submodules in upstream repo
