@@ -6,4 +6,4 @@
 
 ## Build RPM
 
-    fedpkg --release f39 mockbuild --root fedora-39-aarch64
+    fedpkg --release f40 mockbuild --root fedora-40-aarch64
