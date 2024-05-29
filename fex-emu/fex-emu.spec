@@ -1,5 +1,5 @@
 %global date 20240529
-%global commit 35ec54f92039f1657b1b9860e1e30113266ee6c0
+%global commit 9b1b9c26cc7ce1caf917d324cc52a009f6900547
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global toolchain clang
