@@ -1,5 +1,5 @@
-%global date 20240604
-%global commit 14bfe6016ed21e777b323948b48fb3beca604c9f
+%global date 20240624
+%global commit b2db04f5d71bacf502c87ff296ec8f2f1751e407
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global toolchain clang
@@ -13,7 +13,7 @@
 %global forgeurl https://github.com/FEX-Emu/FEX
 
 Name:       fex-emu
-Version:    2405^%{date}git%{shortcommit}
+Version:    2406^%{date}git%{shortcommit}
 Release:    1%{?dist}
 Summary:    Fast x86 emulation frontend
 
