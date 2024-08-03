@@ -1,5 +1,5 @@
-%global date 20240713
-%global commit d79b7fcc4997ac8ebb89dbd124b65e1bb11a0927
+%global date 20240802
+%global commit 7ffd3e55d596b4666a0bf879e6edfe91c1528868
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global toolchain clang
@@ -27,18 +27,18 @@ Source0:    %{forgeurl}/archive/%{commit}/FEX-%{commit}.tar.gz
 local externals = {
   { name="Catch2", ref="v3.5.3-g8ac8190", owner="catchorg" },
   { name="cpp-optparse", ref="eab4212", owner="Sonicadvance1", path="../Source/Common/cpp-optparse" },
-  { name="drm-headers", ref="34a2039", owner="FEX-Emu" },
+  { name="drm-headers", ref="v6.8-g34a2039", owner="FEX-Emu" },
   { name="fex-gcc-target-tests-bins", ref="442678a", owner="FEX-Emu" },
   { name="fex-gvisor-tests-bins", ref="71349ae", owner="FEX-Emu" },
   { name="fex-posixtest-bins", ref="9ae2963", owner="FEX-Emu" },
   { name="fmt", ref="10.1.1-gf5e5435", owner="fmtlib" },
   { name="imgui", ref="4c986ec", owner="Sonicadvance1" },
-  { name="jemalloc", ref="16f8061", owner="FEX-Emu" },
-  { name="jemalloc", ref="888181c", owner="FEX-Emu", path="jemalloc_glibc" },
+  { name="jemalloc", ref="v5.3.0-gf3149a8", owner="FEX-Emu" },
+  { name="jemalloc", ref="v5.3.0_glibc-g888181c", owner="FEX-Emu", path="jemalloc_glibc" },
   { name="json-maker", ref="8ecb8ec", owner="Sonicadvance1" },
-  { name="robin-map", ref="f1ab690", owner="FEX-Emu" },
+  { name="robin-map", ref="v1.2.1-fex-gf1ab690", owner="FEX-Emu" },
   { name="tiny-json", ref="9d09127", owner="Sonicadvance1" },
-  { name="vixl", ref="7725aec", owner="FEX-Emu" },
+  { name="vixl", ref="fex6-ga90f5d5", owner="FEX-Emu" },
   { name="Vulkan-Headers", ref="v1.3.278-g31aa7f6", owner="KhronosGroup" },
   { name="xbyak", ref="v7.02-gf17cb9d", owner="herumi" },
   { name="xxhash", ref="v0.8.2-gbbb27a5", owner="Cyan4973" },
