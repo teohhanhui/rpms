@@ -1,5 +1,5 @@
-%global date 20240624
-%global commit b2db04f5d71bacf502c87ff296ec8f2f1751e407
+%global date 20240713
+%global commit d79b7fcc4997ac8ebb89dbd124b65e1bb11a0927
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global toolchain clang
@@ -13,9 +13,9 @@
 %global forgeurl https://github.com/FEX-Emu/FEX
 
 Name:       fex-emu
-Version:    2406^%{date}git%{shortcommit}
+Version:    2407^%{date}git%{shortcommit}
 Release:    1%{?dist}
-Summary:    Fast x86 emulation frontend
+Summary:    A fast usermode x86 and x86-64 emulator for Arm64 Linux
 
 License:    MIT
 URL:        https://fex-emu.com/
@@ -109,9 +109,9 @@ Suggests:       erofs-utils
 FEX allows you to run x86 and x86-64 binaries on an AArch64 host, similar to
 qemu-user and box86. It has native support for a rootfs overlay, so you don't
 need to chroot, as well as some thunklibs so it can forward things like GL to
-the host. FEX presents a Linux 5.0 interface to the guest, and supports both
-AArch64 and x86-64 as hosts. FEX is very much work in progress, so expect things
-to change.
+the host. FEX presents a Linux 5.0+ interface to the guest, and supports only
+AArch64 as a host. FEX is very much work in progress, so expect things to
+change.
 
 %package devel
 Summary:    Development header files for fex-emu
